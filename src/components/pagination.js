@@ -4,7 +4,6 @@ export const initPagination = (
   { pages, fromRow, toRow, totalRows },
   createPage
 ) => {
-  // @todo: #2.3 — подготовить шаблон кнопки для страницы и очистить контейнер
   const pageTemplate = pages.firstElementChild.cloneNode(true);
   pages.replaceChildren();
 
@@ -31,7 +30,6 @@ export const initPagination = (
       }
 
     return Object.assign({}, query, {
-      // добавим параметры к query, но не изменяем исходный объект
       limit,
       page,
     });
@@ -47,9 +45,9 @@ export const initPagination = (
         return createPage(el, pageNumber, pageNumber === page);
       })
     );
-    fromRow.textContent = (page - 1) * limit + 1; // С какой строки выводим
-    toRow.textContent = Math.min(page * limit, total); // До какой строки выводим, если это последняя страница, то отображаем оставшееся количество
-    totalRows.textContent = total; // Сколько всего строк выводим на всех страницах вместе (после фильтрации будет меньше)
+    fromRow.textContent = (page - 1) * limit + 1;
+    toRow.textContent = Math.min(page * limit, total);
+    totalRows.textContent = total;
   };
 
   return {

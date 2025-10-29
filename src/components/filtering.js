@@ -13,14 +13,12 @@ export function initFiltering(elements) {
   };
 
   const applyFiltering = (query, state, action) => {
-    // код с обработкой очистки поля
     if (action?.name === "clear") {
       const fieldName = action.dataset.field;
       const input = action.closest("label").querySelector("input, select");
       if (input) input.value = "";
     }
 
-    // @todo: #4.5 — отфильтровать данные, используя компаратор
     const filter = {};
     Object.keys(elements).forEach((key) => {
       if (elements[key]) {
@@ -28,15 +26,14 @@ export function initFiltering(elements) {
           ["INPUT", "SELECT"].includes(elements[key].tagName) &&
           elements[key].value
         ) {
-          // ищем поля ввода в фильтре с непустыми данными
-          filter[`filter[${elements[key].name}]`] = elements[key].value; // чтобы сформировать в query вложенный объект фильтра
+          filter[`filter[${elements[key].name}]`] = elements[key].value;
         }
       }
     });
 
     return Object.keys(filter).length
       ? Object.assign({}, query, filter)
-      : query; // если в фильтре что-то добавилось, применим к запросу
+      : query;
   };
 
   return {
